@@ -65,16 +65,22 @@ const NavBar = () => {
             >
               All Toys
             </NavLink>
-            <NavLink style={navLinkStyles} 
+
+            {user && (
+              <>
+              <NavLink style={navLinkStyles} 
               to="/myToys"
             >
               My Toys
             </NavLink>
+            
             <NavLink style={navLinkStyles} 
               to="/addAToy"
             >
               Add A Toy
             </NavLink>
+            </>
+            )}
 
 
           </Nav>
@@ -87,7 +93,7 @@ const NavBar = () => {
                 overlay={<Tooltip id="tooltip">{user.displayName}</Tooltip>}
               >
                 <img
-                  className="rounded-circle mr-5"
+                  className="rounded-circle mr-5 mx-3"
                   src={user.photoURL}
                   alt="Profile Picture"
                   style={{ width: "40px", height: "40px" }}
