@@ -4,13 +4,15 @@ import Swal from "sweetalert2";
 
 const AddAToy = () => {
   const [formData, setFormData] = useState({
+    pictureUrl: "",
     name: "",
+    sellerName: "",
+    sellerEmail: "",
+    subCategory: "",
+    price: "",
+    rating: "",
     quantity: "",
-    supplier: "",
-    taste: "",
-    category: "",
-    details: "",
-    photo: "",
+    description: "",
   });
 
   const handleInputChange = (event) => {
@@ -53,12 +55,72 @@ const AddAToy = () => {
       <h2 className="text-3xl font-extrabold">Add a Toy</h2>
       <Form onSubmit={handleAddToy}>
         <Form.Group className="mb-3">
-          <Form.Label>Toy Name</Form.Label>
+          <Form.Label>Picture URL of the Toy</Form.Label>
+          <Form.Control
+            type="text"
+            name="pictureUrl"
+            placeholder="Picture URL"
+            value={formData.pictureUrl}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
             name="name"
-            placeholder="Toy Name"
+            placeholder="Name"
             value={formData.name}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Seller Name</Form.Label>
+          <Form.Control
+            type="text"
+            name="sellerName"
+            placeholder="Seller Name"
+            value={formData.sellerName}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Seller Email</Form.Label>
+          <Form.Control
+            type="email"
+            name="sellerEmail"
+            placeholder="Seller Email"
+            value={formData.sellerEmail}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Sub-category</Form.Label>
+          <Form.Control
+            type="text"
+            name="subCategory"
+            placeholder="Sub-category"
+            value={formData.subCategory}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Price</Form.Label>
+          <Form.Control
+            type="text"
+            name="price"
+            placeholder="Price"
+            value={formData.price}
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Rating</Form.Label>
+          <Form.Control
+            type="text"
+            name="rating"
+            placeholder="Rating"
+            value={formData.rating}
             onChange={handleInputChange}
           />
         </Form.Group>
@@ -73,52 +135,13 @@ const AddAToy = () => {
           />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Supplier Name</Form.Label>
+          <Form.Label>Detail Description</Form.Label>
           <Form.Control
-            type="text"
-            name="supplier"
-            placeholder="Supplier Name"
-            value={formData.supplier}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Taste</Form.Label>
-          <Form.Control
-            type="text"
-            name="taste"
-            placeholder="Taste"
-            value={formData.taste}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Category</Form.Label>
-          <Form.Control
-            type="text"
-            name="category"
-            placeholder="Category"
-            value={formData.category}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Details</Form.Label>
-          <Form.Control
-            type="text"
-            name="details"
-            placeholder="Details"
-            value={formData.details}
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Photo URL</Form.Label>
-          <Form.Control
-            type="text"
-            name="photo"
-            placeholder="Photo URL"
-            value={formData.photo}
+            as="textarea"
+            rows={3}
+            name="description"
+            placeholder="Description"
+            value={formData.description}
             onChange={handleInputChange}
           />
         </Form.Group>
