@@ -32,7 +32,7 @@ const NavBar = () => {
 
   return (
     <Navbar
-      className="bg-dark sticky-top mb-3"
+      className="bg-dark sticky-top "
       collapseOnSelect
       expand="lg"
       bg="light"

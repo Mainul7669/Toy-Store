@@ -19,10 +19,10 @@ const Slider = () => {
   };
 
   return (
-    <Carousel className='my-3' activeIndex={index} onSelect={handleSelect} pause={false}>
+    <Carousel className='mb-3' activeIndex={index} onSelect={handleSelect} pause={false}>
       <Carousel.Item>
         <img
-          className="d-block w-100 "
+          className="d-block w-100 h-50 "
           src="https://images.squarespace-cdn.com/content/v1/51b3dc8ee4b051b96ceb10de/1385749702832-BMRW4DDR340X92D22MJ7/1470412_10151763454557344_2046313636_n.jpg"
           alt="First slide"
         />
