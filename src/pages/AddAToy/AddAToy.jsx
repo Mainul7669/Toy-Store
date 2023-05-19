@@ -6,8 +6,8 @@ const AddAToy = () => {
   const [formData, setFormData] = useState({
     pictureUrl: "",
     name: "",
-    sellerName: "",
-    sellerEmail: "",
+    sellerName: "", // You can retrieve this information from the logged-in user
+    sellerEmail: "", // You can retrieve this information from the logged-in user
     subCategory: "",
     price: "",
     rating: "",
@@ -26,15 +26,17 @@ const AddAToy = () => {
   const handleAddToy = (event) => {
     event.preventDefault();
 
-    console.log(formData);
+    const newToy = { ...formData };
+
+    console.log(newToy);
 
     // Send data to the server
-    fetch("http://localhost:5000/toys", {
+    fetch("http://localhost:5000/myToys", {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(newToy),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -51,11 +53,11 @@ const AddAToy = () => {
   };
 
   return (
-    <div className="bg-light p-4">
+    <div className="container bg-light p-4">
       <h2 className="text-3xl font-extrabold">Add a Toy</h2>
       <Form onSubmit={handleAddToy}>
-        <Form.Group className="mb-3">
-          <Form.Label>Picture URL of the Toy</Form.Label>
+        <Form.Group controlId="pictureUrl">
+          <Form.Label>Picture URL</Form.Label>
           <Form.Control
             type="text"
             name="pictureUrl"
@@ -64,7 +66,7 @@ const AddAToy = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group className="mb-3">
+        <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
@@ -74,7 +76,7 @@ const AddAToy = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group className="mb-3">
+        <Form.Group controlId="sellerName">
           <Form.Label>Seller Name</Form.Label>
           <Form.Control
             type="text"
@@ -84,7 +86,7 @@ const AddAToy = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group className="mb-3">
+        <Form.Group controlId="sellerEmail">
           <Form.Label>Seller Email</Form.Label>
           <Form.Control
             type="email"
@@ -94,7 +96,7 @@ const AddAToy = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group className="mb-3">
+        <Form.Group controlId="subCategory">
           <Form.Label>Sub-category</Form.Label>
           <Form.Control
             type="text"
@@ -104,7 +106,7 @@ const AddAToy = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group className="mb-3">
+        <Form.Group controlId="price">
           <Form.Label>Price</Form.Label>
           <Form.Control
             type="text"
@@ -114,7 +116,7 @@ const AddAToy = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group className="mb-3">
+        <Form.Group controlId="rating">
           <Form.Label>Rating</Form.Label>
           <Form.Control
             type="text"
@@ -124,7 +126,7 @@ const AddAToy = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group className="mb-3">
+        <Form.Group controlId="quantity">
           <Form.Label>Available Quantity</Form.Label>
           <Form.Control
             type="text"
@@ -134,13 +136,12 @@ const AddAToy = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group className="mb-3">
+        <Form.Group controlId="description">
           <Form.Label>Detail Description</Form.Label>
           <Form.Control
             as="textarea"
-            rows={3}
             name="description"
-            placeholder="Description"
+            placeholder="Detail Description"
             value={formData.description}
             onChange={handleInputChange}
           />

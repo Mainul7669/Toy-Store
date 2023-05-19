@@ -15,7 +15,7 @@ const MyToys = () => {
   // Fetch toys data for the logged-in user
   useEffect(() => {
     // Replace this with your API endpoint to fetch user-specific toy data
-    fetch("http://localhost:5000/toys")
+    fetch("http://localhost:5000/myToys")
       .then((res) => res.json())
       .then((data) => {
         setToys(data);
@@ -37,7 +37,7 @@ const MyToys = () => {
       if (result.isConfirmed) {
         // Delete the toy
         // Replace this with your API endpoint to delete the toy
-        fetch(`http://localhost:5000/toys/${toyId}`, {
+        fetch(`http://localhost:5000/myToys/${toyId}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -64,27 +64,31 @@ const MyToys = () => {
     });
   };
 
+
+  
+
+
   const handleUpdateToy = (event) => {
     event.preventDefault();
-
-    const { price, quantity, description } = updateFormData;
-
+  
+    const { price, quantity, description, pictureUrl, name, sellerName, sellerEmail, subCategory, rating } = updateFormData;
+  
     // Update the toy
     // Replace this with your API endpoint to update the toy
-    fetch(`http://localhost:5000/toys/${selectedToy._id}`, {
-      method: "PATCH",
+    fetch(`http://localhost:5000/myToys/${selectedToy._id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ price, quantity, description }),
+      body: JSON.stringify({ price, quantity, description, pictureUrl, name, sellerName, sellerEmail, subCategory, rating }),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then((updatedToy) => {
         // Update the toy in the state
         setToys((prevToys) =>
           prevToys.map((toy) =>
             toy._id === selectedToy._id
-              ? { ...toy, price, quantity, description }
+              ? { ...toy, ...updatedToy }
               : toy
           )
         );
@@ -104,6 +108,9 @@ const MyToys = () => {
         });
       });
   };
+  
+  
+  
 
   const handleUpdateModalOpen = (toy) => {
     setSelectedToy(toy);
@@ -126,6 +133,8 @@ const MyToys = () => {
       [name]: value,
     }));
   };
+
+  
 
   return (
     <div>

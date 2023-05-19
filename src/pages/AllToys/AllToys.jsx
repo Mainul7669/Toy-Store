@@ -21,7 +21,7 @@ const AllToys = () => {
 
   const fetchToys = async () => {
     try {
-      const response = await fetch("http://localhost:5000/toys");
+      const response = await fetch("http://localhost:5000/myToys");
       const data = await response.json();
       setToys(data);
     } catch (error) {
@@ -133,7 +133,7 @@ const AllToys = () => {
             <Modal.Body>
               <img
                 className="w-50"
-                src={selectedToy.picture}
+                src={selectedToy.pictureUrl}
                 alt={selectedToy.name}
               />
               <p>Seller: {selectedToy.sellerName || "-"}</p>
