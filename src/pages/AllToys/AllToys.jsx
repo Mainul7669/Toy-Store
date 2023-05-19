@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Table, Form, FormControl, Button, Modal } from "react-bootstrap";
-
+import { useNavigate, useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const AllToys = () => {
   const [toys, setToys] = useState([]);
@@ -9,7 +11,9 @@ const AllToys = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedToy, setSelectedToy] = useState(null);
 
-
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     fetchToys();
@@ -46,6 +50,10 @@ const AllToys = () => {
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const handleLoginRedirect = () => {
+    navigate("/login", { state: { from: location } });
   };
 
   return (
@@ -97,7 +105,13 @@ const AllToys = () => {
               <td>
                 <div className="d-grid">
                   <Button
-                    onClick={() => openModal(toy)}
+                    onClick={() => {
+                      if (user) {
+                        openModal(toy);
+                      } else {
+                        handleLoginRedirect();
+                      }
+                    }}
                     variant="outline-danger"
                     className="text-dark fw-bold border rounded-3"
                   >
@@ -117,7 +131,11 @@ const AllToys = () => {
               <Modal.Title>{selectedToy.name}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <img className="w-50" src={selectedToy.picture} alt={selectedToy.name} />
+              <img
+                className="w-50"
+                src={selectedToy.picture}
+                alt={selectedToy.name}
+              />
               <p>Seller: {selectedToy.sellerName || "-"}</p>
               <p>Seller Email: {selectedToy.sellerEmail || "-"}</p>
               <p>Price: {selectedToy.price}</p>
