@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <>
-        <ToastContainer />
+ <ToastContainer autoClose={500} />
         <Main></Main>
       </>
     ),

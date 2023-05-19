@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
 
-  const notify = () => toast("You have to login first");
+  
 
   const location = useLocation();
   console.log("user in private route", user);
@@ -17,8 +17,14 @@ const PrivateRoute = ({ children }) => {
     return <Spinner animation="border" variant="primary" />;
   }
 
+  const notify = () => {
+  toast.warn("You have to login first!!", {
+    position: toast.POSITION.TOP_CENTER
+  });
+}
+
   if (!user) {
-    notify(); // Call notify function when there is no user
+    notify(); 
     return <Navigate state={{ from: location }} to="/login" replace />;
   }
 
