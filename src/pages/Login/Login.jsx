@@ -1,4 +1,4 @@
-import  { useContext } from "react";
+import { useContext } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -6,8 +6,7 @@ import { FaGoogle } from "react-icons/fa";
 import { useState } from "react";
 
 const Login = () => {
-  const { signIn, signInWithGoogle} =
-    useContext(AuthContext);
+  const { signIn, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   console.log("login page location", location);
@@ -50,9 +49,8 @@ const Login = () => {
       });
   };
 
-
   return (
-    <Container className="w-50 mx-auto">
+    <Container className="w-50 mx-auto m-5">
       <h3>Please Login</h3>
       <Form onSubmit={handleLogin}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -75,12 +73,16 @@ const Login = () => {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button className="w-25" variant="info" type="submit">
           Login
         </Button>
         <br />
         <Form.Text className="text-secondary">
-          Don't Have an Account? <Link to="/signUp">SignUp</Link>
+          <div className="d-flex gap-2 mt-3">
+            {" "}
+            <span>Don't Have an Account?</span>
+            <Link className="fw-bold" to="/signUp">SignUp</Link>
+          </div>
         </Form.Text>
         <Form.Text className="text-success"></Form.Text>
         <Form.Text className="text-danger"></Form.Text>
@@ -89,7 +91,7 @@ const Login = () => {
       <p className="text-danger">{error}</p>
 
       <div>
-        <Button onClick={handleGoogleSignIn} variant="outline-primary">
+        <Button onClick={handleGoogleSignIn} variant="outline-success">
           {" "}
           <FaGoogle /> Login with Google
         </Button>

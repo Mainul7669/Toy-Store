@@ -70,11 +70,12 @@ const AllToys = () => {
         />
         <Form.Group className="w-25">
           <Form.Control
-            className="fw-bold text-center"
+            className="fw-bold text-center btn btn-info"
             as="select"
             value={limit}
             onChange={handleLimitChange}
           >
+            <option value={2}>2</option>
             <option value={5}>5</option>
             <option value={10}>10</option>
             <option value={20}>20</option>
@@ -99,7 +100,7 @@ const AllToys = () => {
             <tr key={toy._id}>
               <td>{toy.sellerName || "-"}</td>
               <td>{toy.name}</td>
-              <td>{toy.subcategory}</td>
+              <td>{toy.subCategory}</td>
               <td>{toy.price}</td>
               <td>{toy.quantity}</td>
               <td>
@@ -132,7 +133,7 @@ const AllToys = () => {
             </Modal.Header>
             <Modal.Body>
               <img
-                className="w-50"
+                className="w-50 mb-3"
                 src={selectedToy.pictureUrl}
                 alt={selectedToy.name}
               />

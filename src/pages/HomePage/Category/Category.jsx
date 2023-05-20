@@ -2,6 +2,7 @@ import { Tab, TabContainer, Nav, Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { FaStar } from "react-icons/fa";
 
 const Category = () => {
   const [toys, setToys] = useState([]);
@@ -26,7 +27,7 @@ const Category = () => {
   }, {});
 
   return (
-    <div>
+    <div className="mb-5 m-3">
       <h2 className="section-title fw-bold text-center mb-4">Category</h2>
       <TabContainer defaultActiveKey="1">
         <Row className="justify-content-center">
@@ -50,25 +51,32 @@ const Category = () => {
                       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">
                         {categoryToys.map((toy) => (
                           <div className="col" key={toy._id}>
-                            <Card>
+                            <Card className="h-100">
                               <Card.Img
-                                style={{ height: "311px", width: "414px" }}
-                                className="img-fluid"
+                                className="card-img-top"
                                 variant="top"
                                 loading="lazy"
                                 src={toy.picture}
+                                alt={toy.name}
                               />
 
                               <Card.Body>
                                 <Card.Title>{toy.name}</Card.Title>
                                 <Card.Text>
-                                  <strong>Price:</strong> ${toy.price}
-                                  <br />
-                                  <strong>Rating:</strong> {toy.rating}
+                                  <div className="d-flex align-items-center">
+                                    Price: ${toy.price}{" "}
+                                  </div>
+                                  
+                                  <div className="d-flex align-items-center gap-2">
+                                    <FaStar className="text-warning" />{" "}
+                                    {toy.rating}
+                                  </div>
                                 </Card.Text>
                                 <Button
-                                  onClick={() => navigate(`singleData/${toy._id}`)}
-                                  className="bg-warning border border-0"
+                                  onClick={() =>
+                                    navigate(`singleData/${toy._id}`)
+                                  }
+                                  className="bg-info border-0"
                                 >
                                   View Details
                                 </Button>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
+import { FaStar } from "react-icons/fa";
 
 const SingleData = () => {
   const { toyId } = useParams();
@@ -27,15 +28,15 @@ const SingleData = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center">Toy Details</h1>
-      <div className="row justify-content-center">
+      <h1 className="text-center mb-5">Toy Details</h1>
+      <div className="row justify-content-center mb-5">
         <div className="col-md-6">
           <img src={picture} alt={name} className="img-fluid mb-3" />
           <h2>{name}</h2>
           <p>Seller: {sellerName}</p>
           <p>Email: {sellerEmail}</p>
           <p>Price: ${price}</p>
-          <p>Rating: {rating}</p>
+          <p><FaStar className="text-warning"/> {rating}</p>
           <p>Quantity: {quantity}</p>
           <p>Description: {description}</p>
         </div>

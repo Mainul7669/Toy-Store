@@ -25,14 +25,14 @@ const NavBar = () => {
     return {
       fontWeight: isActive ? 'bold' : 'normal',
       textDecoration: 'none' ,
-      color: isActive ? 'red' : 'white',
+      color: isActive ? 'blue' : 'white',
     }
   }
   
 
   return (
     <Navbar
-      className="bg-dark sticky-top "
+      className="bg-dark sticky-top"
       collapseOnSelect
       expand="lg"
       bg="light"
@@ -43,7 +43,7 @@ const NavBar = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav>
             <div className="text-center">
-            <img src="/src/assets/logo.png" alt="Website Logo" width="50" height="50" className="mb-1" />
+            <img src="/src/assets/logo.png" alt="Website Logo" width="20" height="20" className="mb-1" />
             <p className="fw-bold text-light">ToyTroop Universe</p>
             </div>
           </Nav>
@@ -111,7 +111,7 @@ const NavBar = () => {
               </Button>
             ) : (
               <Link to="/login">
-                <Button variant="outline-danger"
+                <Button variant="outline-info"
                   className="text-white fw-bold  border  rounded-3 "
                 >
                   Login

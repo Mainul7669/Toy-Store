@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Table, Button, Modal, Form } from "react-bootstrap";
+import { Table, Button, Modal, Form, DropdownButton, Dropdown } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -16,7 +16,6 @@ const MyToys = () => {
   });
 
   // Fetch toys data for the logged-in user
-
 
   const handleDeleteToy = (toyId) => {
     Swal.fire({
@@ -36,9 +35,7 @@ const MyToys = () => {
           .then((res) => res.json())
           .then((data) => {
             // Remove the deleted toy from the state
-            setToys((prevToys) =>
-              prevToys.filter((toy) => toy._id !== toyId)
-            );
+            setToys((prevToys) => prevToys.filter((toy) => toy._id !== toyId));
             Swal.fire({
               title: "Deleted!",
               text: "The toy has been deleted.",
@@ -57,31 +54,45 @@ const MyToys = () => {
     });
   };
 
-
-  
-
-
   const handleUpdateToy = (event) => {
     event.preventDefault();
-  
-    const { price, quantity, description, pictureUrl, name, sellerName, sellerEmail, subCategory, rating } = updateFormData;
-  
+
+    const {
+      price,
+      quantity,
+      description,
+      pictureUrl,
+      name,
+      sellerName,
+      sellerEmail,
+      subCategory,
+      rating,
+    } = updateFormData;
+
     // Update the toy
     fetch(`http://localhost:5000/myToys/${selectedToy._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ price, quantity, description, pictureUrl, name, sellerName, sellerEmail, subCategory, rating }),
+      body: JSON.stringify({
+        price,
+        quantity,
+        description,
+        pictureUrl,
+        name,
+        sellerName,
+        sellerEmail,
+        subCategory,
+        rating,
+      }),
     })
       .then((res) => res.json())
       .then((updatedToy) => {
         // Update the toy in the state
         setToys((prevToys) =>
           prevToys.map((toy) =>
-            toy._id === selectedToy._id
-              ? { ...toy, ...updatedToy }
-              : toy
+            toy._id === selectedToy._id ? { ...toy, ...updatedToy } : toy
           )
         );
 
@@ -100,11 +111,7 @@ const MyToys = () => {
           icon: "error",
         });
       });
-      
   };
-  
-  
-  
 
   const handleUpdateModalOpen = (toy) => {
     setSelectedToy(toy);
@@ -128,27 +135,69 @@ const MyToys = () => {
     }));
   };
 
-  
-
   useEffect(() => {
     fetch("http://localhost:5000/myToys")
       .then((res) => res.json())
       .then((data) => {
         // Filter the toys data based on the logged-in user's email
-        const filteredToys = data.filter((toy) => toy.sellerEmail === user?.email);
+        const filteredToys = data.filter(
+          (toy) => toy.sellerEmail === user?.email
+        );
         setToys(filteredToys);
       })
       .catch((error) => {
         console.error("Error fetching toys data:", error);
       });
   }, [user]);
-  
 
+  //sorting
 
+  const [sortOrder, setSortOrder] = useState("");
+
+  const handleSortByPriceDesc = () => {
+    setSortOrder("desc");
+  };
+
+  const handleSortByPriceAsc = () => {
+    setSortOrder("asc");
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:5000/myToys")
+      .then((res) => res.json())
+      .then((data) => {
+        // Filter the toys data based on the logged-in user's email
+        const filteredToys = data.filter(
+          (toy) => toy.sellerEmail === user?.email
+        );
+
+        // Sort the toys based on the sorting order
+        if (sortOrder === "desc") {
+          filteredToys.sort((a, b) => b.price - a.price);
+        } else if (sortOrder === "asc") {
+          filteredToys.sort((a, b) => a.price - b.price);
+        }
+
+        setToys(filteredToys);
+      })
+      .catch((error) => {
+        console.error("Error fetching toys data:", error);
+      });
+  }, [user, sortOrder]);
 
   return (
     <div className="container">
       <h1 className="text-center fw-bold mt-3 mb-4">My Toys</h1>
+      <div className="mb-5">
+      <DropdownButton title="Sort" variant="info">
+        <Dropdown.Item onClick={handleSortByPriceDesc}>
+          Sort by Price (Desc)
+        </Dropdown.Item>
+        <Dropdown.Item onClick={handleSortByPriceAsc}>
+          Sort by Price (Asc)
+        </Dropdown.Item>
+      </DropdownButton>
+    </div>
       <Table striped bordered hover>
         <thead>
           <tr>

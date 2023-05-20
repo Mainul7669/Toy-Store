@@ -1,4 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
   return (
@@ -16,15 +18,15 @@ const Footer = () => {
           </Col>
           <Col md={4} className="text-center text-md-right">
             <h5>Follow Us</h5>
-            <div>
-              <a href="https://facebook.com/toytroopuniverse" target="_blank" rel="noopener noreferrer" className="mr-2">
-                <i className="fab fa-facebook"></i>
+            <div className="d-flex justify-content-center ">
+              <a href="https://facebook.com/toytroopuniverse" target="_blank" rel="noopener noreferrer" className="me-3">
+                <FontAwesomeIcon icon={faFacebook} />
               </a>
-              <a href="https://twitter.com/toytroopuniverse" target="_blank" rel="noopener noreferrer" className="mr-2">
-                <i className="fab fa-twitter"></i>
+              <a href="https://twitter.com/toytroopuniverse" target="_blank" rel="noopener noreferrer" className="me-3">
+                <FontAwesomeIcon  icon={faTwitter} />
               </a>
               <a href="https://instagram.com/toytroopuniverse" target="_blank" rel="noopener noreferrer">
-                <i className="fab fa-instagram"></i>
+                <FontAwesomeIcon className='text-danger' icon={faInstagram} />
               </a>
             </div>
             <p className="mt-3">1234 Main Street, City, State, ZIP</p>
