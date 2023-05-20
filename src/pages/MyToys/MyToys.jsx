@@ -17,16 +17,7 @@ const MyToys = () => {
   });
 
   // Fetch toys data for the logged-in user
-  useEffect(() => {
-    fetch("http://localhost:5000/myToys")
-      .then((res) => res.json())
-      .then((data) => {
-        setToys(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching toys data:", error);
-      });
-  }, []);
+
 
   const handleDeleteToy = (toyId) => {
     Swal.fire({
@@ -144,15 +135,19 @@ const MyToys = () => {
 
   
 
-
-    useEffect(() => {
-    fetch(`http://localhost:5000/myToys/${user?.email}`)
+  useEffect(() => {
+    fetch("http://localhost:5000/myToys")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setToys(data);
+        // Filter the toys data based on the logged-in user's email
+        const filteredToys = data.filter((toy) => toy.sellerEmail === user?.email);
+        setToys(filteredToys);
+      })
+      .catch((error) => {
+        console.error("Error fetching toys data:", error);
       });
-  }, [user, control]);
+  }, [user]);
+  
 
 
 
