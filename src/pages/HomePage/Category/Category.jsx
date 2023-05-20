@@ -11,7 +11,7 @@ const Category = () => {
 
   useEffect(() => {
     // Fetch toys data from API
-    fetch("http://localhost:5000/toys")
+    fetch("https://assignment-11-server-ashy-ten.vercel.app/toys")
       .then((response) => response.json())
       .then((data) => setToys(data));
   }, []);

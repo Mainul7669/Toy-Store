@@ -28,12 +28,11 @@ const MyToys = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // Delete the toy
-        // Replace this with your API endpoint to delete the toy
-        fetch(`http://localhost:5000/myToys/${toyId}`, {
+        fetch(`https://assignment-11-server-ashy-ten.vercel.app/MyToys/${toyId}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
-          .then((data) => {
+          .then(() => {
             // Remove the deleted toy from the state
             setToys((prevToys) => prevToys.filter((toy) => toy._id !== toyId));
             Swal.fire({
@@ -53,6 +52,7 @@ const MyToys = () => {
       }
     });
   };
+  
 
   const handleUpdateToy = (event) => {
     event.preventDefault();
@@ -70,7 +70,7 @@ const MyToys = () => {
     } = updateFormData;
 
     // Update the toy
-    fetch(`http://localhost:5000/myToys/${selectedToy._id}`, {
+    fetch(`https://assignment-11-server-ashy-ten.vercel.app/MyToys/${selectedToy._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -136,7 +136,7 @@ const MyToys = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:5000/myToys")
+    fetch("https://assignment-11-server-ashy-ten.vercel.app/MyToys")
       .then((res) => res.json())
       .then((data) => {
         // Filter the toys data based on the logged-in user's email
@@ -163,7 +163,7 @@ const MyToys = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:5000/myToys")
+    fetch("https://assignment-11-server-ashy-ten.vercel.app/MyToys")
       .then((res) => res.json())
       .then((data) => {
         // Filter the toys data based on the logged-in user's email

@@ -65,7 +65,7 @@ const router = createBrowserRouter([
             <SingleData></SingleData>
           </PrivateRoute>
         ),
-        loader: ({ params }) => fetch(`http://localhost:5000/toys/${params.toyId}`)
+        loader: ({ params }) => fetch(`https://assignment-11-server-ashy-ten.vercel.app/toys/${params.toyId}`)
       },
     ]
   },

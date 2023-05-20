@@ -21,7 +21,7 @@ const AllToys = () => {
 
   const fetchToys = async () => {
     try {
-      const response = await fetch("http://localhost:5000/myToys");
+      const response = await fetch("https://assignment-11-server-ashy-ten.vercel.app/MyToys");
       const data = await response.json();
       setToys(data);
     } catch (error) {
