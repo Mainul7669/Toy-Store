@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { Table, Button, Modal, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const MyToys = () => {
   const [toys, setToys] = useState([]);
   const [selectedToy, setSelectedToy] = useState(null);
+  const { user } = useContext(AuthContext);
+  const [control, setControl] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [updateFormData, setUpdateFormData] = useState({
     price: "",
@@ -14,7 +18,6 @@ const MyToys = () => {
 
   // Fetch toys data for the logged-in user
   useEffect(() => {
-    // Replace this with your API endpoint to fetch user-specific toy data
     fetch("http://localhost:5000/myToys")
       .then((res) => res.json())
       .then((data) => {
@@ -74,7 +77,6 @@ const MyToys = () => {
     const { price, quantity, description, pictureUrl, name, sellerName, sellerEmail, subCategory, rating } = updateFormData;
   
     // Update the toy
-    // Replace this with your API endpoint to update the toy
     fetch(`http://localhost:5000/myToys/${selectedToy._id}`, {
       method: "PUT",
       headers: {
@@ -92,6 +94,11 @@ const MyToys = () => {
               : toy
           )
         );
+
+        if (updatedToy.modifiedCount > 0) {
+          setControl(!control);
+        }
+
         setShowUpdateModal(false);
         Swal.fire({
           title: "Success!",
@@ -107,6 +114,7 @@ const MyToys = () => {
           icon: "error",
         });
       });
+      
   };
   
   
@@ -136,9 +144,21 @@ const MyToys = () => {
 
   
 
+
+    useEffect(() => {
+    fetch(`http://localhost:5000/myToys/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setToys(data);
+      });
+  }, [user, control]);
+
+
+
   return (
-    <div>
-      <h1>My Toys</h1>
+    <div className="container">
+      <h1 className="text-center fw-bold mt-3 mb-4">My Toys</h1>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -175,7 +195,7 @@ const MyToys = () => {
         </tbody>
       </Table>
 
-      <Modal show={showUpdateModal} onHide={handleUpdateModalClose}>
+      <Modal show={showUpdateModal} onHide={handleUpdateModalClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Update Toy</Modal.Title>
         </Modal.Header>

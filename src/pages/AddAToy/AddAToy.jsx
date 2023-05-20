@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const AddAToy = () => {
+  const { user } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     pictureUrl: "",
     name: "",
-    sellerName: "", // You can retrieve this information from the logged-in user
-    sellerEmail: "", // You can retrieve this information from the logged-in user
+    sellerName: user?.displayName || "",
+    sellerEmail: user?.email || "",
     subCategory: "",
     price: "",
     rating: "",
@@ -48,13 +51,14 @@ const AddAToy = () => {
             icon: "success",
             confirmButtonText: "Cool",
           });
+          setFormData({ price: "", quantity: "", description: "", subCategory: "", name: "", rating: "", pictureUrl: "" });
         }
       });
   };
 
   return (
-    <div className="container bg-light p-4">
-      <h2 className="text-3xl font-extrabold">Add a Toy</h2>
+    <div className="container bg-light p-4 mb-4">
+      <h2 className="text-3xl text-center font-extrabold">Add a Toy</h2>
       <Form onSubmit={handleAddToy}>
         <Form.Group controlId="pictureUrl">
           <Form.Label>Picture URL</Form.Label>
@@ -82,7 +86,7 @@ const AddAToy = () => {
             type="text"
             name="sellerName"
             placeholder="Seller Name"
-            value={formData.sellerName}
+            value={user?.displayName}
             onChange={handleInputChange}
           />
         </Form.Group>
@@ -92,7 +96,7 @@ const AddAToy = () => {
             type="email"
             name="sellerEmail"
             placeholder="Seller Email"
-            value={formData.sellerEmail}
+            value={user?.email}
             onChange={handleInputChange}
           />
         </Form.Group>
@@ -146,7 +150,8 @@ const AddAToy = () => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="outline-danger"
+                    className="mt-3 text-dark fw-bold border rounded-3" type="submit">
           Add Toy
         </Button>
       </Form>

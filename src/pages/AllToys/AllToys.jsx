@@ -58,7 +58,7 @@ const AllToys = () => {
 
   return (
     <div className="d-flex flex-column align-items-center">
-      <h1 className="text-center fw-bold mt-3 mb-4">All Toys</h1>
+      <h1 className="text-center mt-3 mb-4">All Toys</h1>
       <Form className="d-flex mb-4 w-25">
         <FormControl
           type="search"
