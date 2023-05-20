@@ -8,7 +8,6 @@ const MyToys = () => {
   const [toys, setToys] = useState([]);
   const [selectedToy, setSelectedToy] = useState(null);
   const { user } = useContext(AuthContext);
-  const [control, setControl] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [updateFormData, setUpdateFormData] = useState({
     price: "",
@@ -85,10 +84,6 @@ const MyToys = () => {
               : toy
           )
         );
-
-        if (updatedToy.modifiedCount > 0) {
-          setControl(!control);
-        }
 
         setShowUpdateModal(false);
         Swal.fire({
