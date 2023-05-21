@@ -56,7 +56,7 @@ const MyToys = () => {
 
   const handleUpdateToy = (event) => {
     event.preventDefault();
-
+  
     const {
       price,
       quantity,
@@ -68,7 +68,7 @@ const MyToys = () => {
       subCategory,
       rating,
     } = updateFormData;
-
+  
     // Update the toy
     fetch(`https://assignment-11-server-ashy-ten.vercel.app/MyToys/${selectedToy._id}`, {
       method: "PUT",
@@ -90,12 +90,13 @@ const MyToys = () => {
       .then((res) => res.json())
       .then((updatedToy) => {
         // Update the toy in the state
+        console.log(updatedToy);
         setToys((prevToys) =>
           prevToys.map((toy) =>
             toy._id === selectedToy._id ? { ...toy, ...updatedToy } : toy
           )
         );
-
+  
         setShowUpdateModal(false);
         Swal.fire({
           title: "Success!",
@@ -112,6 +113,7 @@ const MyToys = () => {
         });
       });
   };
+  
 
   const handleUpdateModalOpen = (toy) => {
     setSelectedToy(toy);
